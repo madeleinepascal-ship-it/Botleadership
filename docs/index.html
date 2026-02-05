@@ -533,6 +533,12 @@
       "corporate culture", "startup culture", "meetings",
     ];
 
+    const linkedInEmojis = [
+      "💡", "🚀", "🔥", "⭐", "✨", "💪", "🎯", "📈", "🙌", "👇",
+      "⚡", "🧠", "💎", "🏆", "🌟", "❤️", "👏", "🤝", "📣", "🔑",
+      "💰", "🎉", "✅", "➡️", "🛑", "⬇️", "👀", "🫡", "🙏", "💯",
+    ];
+
     const postStyles = ["story", "listicle", "hot_take", "humble_brag", "motivational", "contrarian"];
 
     // ─── GENERATOR ────────────────────────────────────────────
@@ -550,6 +556,10 @@
       return pickN(hashtags, count || 5).join(" ");
     }
 
+    function emoji() {
+      return pick(linkedInEmojis);
+    }
+
     function linkedInFormat(lines) {
       return lines.join("\n\n");
     }
@@ -558,12 +568,12 @@
       return linkedInFormat([
         pick(openingHooks),
         "I met " + pick(storySubjects) + " last week.",
-        "We talked for 10 minutes.",
+        "We talked for 10 minutes. " + emoji(),
         pick(vulnerablePivots),
-        "This person " + pick(storyLessons) + ".",
+        emoji() + " This person " + pick(storyLessons) + ".",
         pick(insights),
-        pick(punchyLines),
-        pick(closingCTAs),
+        pick(punchyLines) + " " + emoji(),
+        pick(closingCTAs) + " " + emoji(),
         "",
         makeHashtags(),
       ]);
@@ -572,13 +582,13 @@
     function generateListicle() {
       var count = Math.floor(Math.random() * 5) + 5;
       var items = pickN(listicleItems, count);
-      var list = items.map(function(item, i) { return (i + 1) + ". " + item; }).join("\n");
+      var list = items.map(function(item, i) { return emoji() + " " + (i + 1) + ". " + item; }).join("\n");
       return linkedInFormat([
-        count + " things I wish someone told me " + (Math.floor(Math.random() * 10) + 5) + " years ago:",
+        emoji() + " " + count + " things I wish someone told me " + (Math.floor(Math.random() * 10) + 5) + " years ago:",
         list,
         "",
-        pick(punchyLines),
-        pick(closingCTAs),
+        pick(punchyLines) + " " + emoji(),
+        pick(closingCTAs) + " " + emoji(),
         "",
         makeHashtags(),
       ]);
@@ -586,14 +596,14 @@
 
     function generateHotTake() {
       return linkedInFormat([
-        pick(["Unpopular opinion:", "Hot take:", "Controversial take:", "I said what I said:"]),
+        emoji() + " " + pick(["Unpopular opinion:", "Hot take:", "Controversial take:", "I said what I said:"]),
         pick(insights),
-        pick(punchyLines),
+        pick(punchyLines) + " " + emoji(),
         pick(vulnerablePivots),
-        pick(insights),
+        emoji() + " " + pick(insights),
         pick(punchyLines),
         "",
-        pick(closingCTAs),
+        pick(closingCTAs) + " " + emoji(),
         "",
         makeHashtags(),
       ]);
@@ -602,14 +612,14 @@
     function generateHumbleBrag() {
       return linkedInFormat([
         pick(openingHooks),
-        pick(humbleBrags) + ": the most important thing in business isn't " + pick(buzzwords) + ".",
-        "It's " + pick(buzzwords) + ".",
+        pick(humbleBrags) + ": the most important thing in business isn't " + pick(buzzwords) + ". " + emoji(),
+        "It's " + pick(buzzwords) + ". " + emoji(),
         pick(vulnerablePivots),
-        pick(insights),
-        pick(punchyLines),
+        emoji() + " " + pick(insights),
+        pick(punchyLines) + " " + emoji(),
         pick(punchyLines),
         "",
-        pick(closingCTAs),
+        pick(closingCTAs) + " " + emoji(),
         "",
         makeHashtags(),
       ]);
@@ -619,17 +629,17 @@
       return linkedInFormat([
         pick(openingHooks),
         pick(vulnerablePivots),
-        pick(insights),
+        emoji() + " " + pick(insights),
         "",
-        "Here's the truth:",
+        "Here's the truth: " + emoji(),
         "",
-        pick(insights),
-        pick(punchyLines),
+        emoji() + " " + pick(insights),
+        pick(punchyLines) + " " + emoji(),
         "",
-        "You are one decision away from a completely different life.",
+        emoji() + " You are one decision away from a completely different life.",
         "",
-        pick(punchyLines),
-        pick(closingCTAs),
+        pick(punchyLines) + " " + emoji(),
+        pick(closingCTAs) + " " + emoji(),
         "",
         makeHashtags(),
       ]);
@@ -638,16 +648,16 @@
     function generateContrarian() {
       var target = pick(contrarianTargets);
       return linkedInFormat([
-        "Stop glorifying " + target + ".",
-        pick(punchyLines),
+        emoji() + " Stop glorifying " + target + ".",
+        pick(punchyLines) + " " + emoji(),
         pick(vulnerablePivots),
-        "I spent years chasing " + target + ". It nearly destroyed me.",
-        pick(insights),
+        "I spent years chasing " + target + ". It nearly destroyed me. " + emoji(),
+        emoji() + " " + pick(insights),
         "",
-        "The real secret? " + pick(insights),
+        "The real secret? " + pick(insights) + " " + emoji(),
         pick(punchyLines),
         "",
-        pick(closingCTAs),
+        pick(closingCTAs) + " " + emoji(),
         "",
         makeHashtags(),
       ]);
