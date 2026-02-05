@@ -1,0 +1,23 @@
+{
+  "name": "bot-leadership",
+  "version": "1.0.0",
+  "description": "A thought leadership post generator - the aggregate mix of every LinkedIn thought leader",
+  "main": "dist/index.js",
+  "bin": {
+    "bot-leadership": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/cli.js",
+    "serve": "node dist/server.js",
+    "generate": "node dist/cli.js",
+    "dev": "ts-node src/cli.ts"
+  },
+  "keywords": ["linkedin", "thought-leadership", "satire", "generator"],
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "@types/node": "^20.10.0",
+    "ts-node": "^10.9.2"
+  }
+}
