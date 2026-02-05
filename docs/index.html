@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>bot leadership - thought leadership generator</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f3f2ef;
+      color: #000000e6;
+      min-height: 100vh;
+    }
+
+    .header {
+      background: #0a66c2;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .header p {
+      font-size: 14px;
+      opacity: 0.9;
+      margin-top: 4px;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 24px auto;
+      padding: 0 16px;
+    }
+
+    .controls {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.05);
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .controls label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #666;
+    }
+
+    .controls select {
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+      background: white;
+      cursor: pointer;
+    }
+
+    .generate-btn {
+      background: #0a66c2;
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 20px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-left: auto;
+    }
+
+    .generate-btn:hover {
+      background: #004182;
+    }
+
+    .generate-btn:active {
+      transform: scale(0.98);
+    }
+
+    .post-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.05);
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+
+    .post-header {
+      display: flex;
+      align-items: center;
+      padding: 16px 16px 0;
+      gap: 8px;
+    }
+
+    .avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0a66c2, #004182);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .post-meta h3 {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    .post-meta p {
+      font-size: 12px;
+      color: #666;
+      line-height: 1.3;
+    }
+
+    .post-body {
+      padding: 12px 16px 16px;
+      font-size: 14px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    .post-actions {
+      display: flex;
+      border-top: 1px solid #e0e0e0;
+      padding: 4px 16px;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 12px;
+      text-align: center;
+      font-size: 13px;
+      color: #666;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.2s;
+      border: none;
+      background: none;
+    }
+
+    .action-btn:hover {
+      background: #f3f2ef;
+      color: #000;
+    }
+
+    .copy-btn {
+      display: block;
+      margin: 0 auto 24px;
+      background: none;
+      border: 1px solid #0a66c2;
+      color: #0a66c2;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .copy-btn:hover {
+      background: #0a66c2;
+      color: white;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 24px;
+      color: #999;
+      font-size: 12px;
+    }
+
+    @media (max-width: 480px) {
+      .controls { flex-direction: column; }
+      .generate-btn { margin-left: 0; width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>bot leadership</h1>
+    <p>The Aggregate Mix of Every LinkedIn Thought Leader</p>
+  </div>
+
+  <div class="container">
+    <div class="controls">
+      <label for="style">Style:</label>
+      <select id="style">
+        <option value="">Random</option>
+        <option value="story">Story</option>
+        <option value="listicle">Listicle</option>
+        <option value="hot_take">Hot Take</option>
+        <option value="humble_brag">Humble Brag</option>
+        <option value="motivational">Motivational</option>
+        <option value="contrarian">Contrarian</option>
+      </select>
+      <button class="generate-btn" onclick="generate()">Generate Post</button>
+    </div>
+
+    <div id="post-container">
+      <div class="post-card">
+        <div class="post-header">
+          <div class="avatar">BL</div>
+          <div class="post-meta">
+            <h3>bot leadership</h3>
+            <p>Thought Leader | Disrupting Disruption | 500+ Connections</p>
+            <p>Just now &middot; &#127760;</p>
+          </div>
+        </div>
+        <div class="post-body" id="post-body">Click "Generate Post" to create your first piece of thought leadership.</div>
+        <div class="post-actions">
+          <button class="action-btn">&#128077; Like</button>
+          <button class="action-btn">&#128172; Comment</button>
+          <button class="action-btn">&#128260; Repost</button>
+          <button class="action-btn">&#128228; Send</button>
+        </div>
+      </div>
+      <button class="copy-btn" onclick="copyPost()">Copy to Clipboard</button>
+    </div>
+
+    <div class="footer">
+      bot leadership &mdash; no actual thought leaders were harmed in the making of this content.<br>
+      Powered by an aggregate mix of every LinkedIn clich&eacute; ever written.
+    </div>
+  </div>
+
+  <script>
+    // ─── CORPUS ───────────────────────────────────────────────
+
+    const openingHooks = [
+      "I got fired last week.",
+      "I just turned down a $500K offer.",
+      "Yesterday, my 5-year-old taught me more about leadership than any MBA ever could.",
+      "I've been silent about this for too long.",
+      "Unpopular opinion:",
+      "Hot take:",
+      "Most people won't tell you this.",
+      "I failed. Publicly. Spectacularly.",
+      "10 years ago, I was sleeping on my friend's couch.",
+      "The CEO pulled me aside and said something I'll never forget.",
+      "I almost quit last Tuesday.",
+      "This post will make some people uncomfortable.",
+      "I wasn't going to share this, but here goes.",
+      "Everyone told me I was crazy.",
+      "I just had the most humbling experience of my career.",
+      "Read this before you give up.",
+      "Stop scrolling. This is important.",
+      "I built a $10M business from my kitchen table.",
+      "The best advice I ever got came from a taxi driver.",
+      "I deleted LinkedIn from my phone for 30 days. Here's what happened.",
+      "3 years ago I was broke. Today I run a 7-figure company.",
+      "A janitor at my office taught me everything about leadership.",
+      "I just walked out of a board meeting.",
+      "Here's a truth that no one in tech wants to hear.",
+      "My biggest regret? Not starting sooner.",
+      "I gave my employees unlimited PTO. The results shocked me.",
+      "Someone told me I'd never make it.",
+      "I'm going to say what everyone's thinking but no one's saying.",
+      "Just had coffee with a Fortune 500 CEO. Mind = blown.",
+      "I've interviewed 1,000+ candidates. Here's what I've learned.",
+      "The #1 skill they don't teach you in business school:",
+      "I made my first million at 25. Then I lost it all.",
+      "You're not lazy. You're not unmotivated. You're just doing it wrong.",
+      "I said no to a meeting with Jeff Bezos. Here's why.",
+      "This morning I cried at my desk. And I'm not ashamed.",
+      "I posted this same advice 2 years ago and no one listened.",
+      "Confession: I have imposter syndrome. Every. Single. Day.",
+    ];
+
+    const vulnerablePivots = [
+      "And that's when it hit me.",
+      "But here's what nobody tells you:",
+      "That failure? It was the best thing that ever happened to me.",
+      "And in that moment, everything changed.",
+      "But here's the thing...",
+      "What I didn't realize at the time was this:",
+      "And then I had an epiphany.",
+      "That's when I learned the most important lesson of my career.",
+      "But looking back, I wouldn't change a thing.",
+      "Here's the real truth:",
+      "And do you know what I discovered?",
+      "The plot twist?",
+      "But life had other plans.",
+      "That moment of failure taught me something no success ever could.",
+      "Then something unexpected happened.",
+      "And that's when I stopped following the rules.",
+    ];
+
+    const insights = [
+      "Culture eats strategy for breakfast.",
+      "Your network is your net worth.",
+      "People don't leave companies. They leave managers.",
+      "Done is better than perfect.",
+      "The only constant is change.",
+      "It's not about the destination. It's about the journey.",
+      "Hire for attitude, train for skill.",
+      "Revenue is vanity, profit is sanity, cash is reality.",
+      "If you're the smartest person in the room, you're in the wrong room.",
+      "The best time to start was yesterday. The second best time is now.",
+      "Work smarter, not harder.",
+      "Fail fast, fail forward.",
+      "Innovation happens at the intersection of creativity and constraint.",
+      "Leadership is not about being in charge. It's about taking care of those in your charge.",
+      "Your brand is what people say about you when you're not in the room.",
+      "The future belongs to those who learn more skills and combine them in creative ways.",
+      "Disruption doesn't come from the corner office.",
+      "The riches are in the niches.",
+      "A players hire A players. B players hire C players.",
+      "Compound interest is the eighth wonder of the world.",
+      "Execution is everything.",
+      "Authenticity is the new currency.",
+      "Speed wins. Move fast and break things.",
+      "Customer obsession always beats competitor obsession.",
+      "The best leaders are the best listeners.",
+      "It's not about having time. It's about making time.",
+      "Success leaves clues.",
+      "The market doesn't care about your feelings.",
+      "Data is the new oil.",
+      "Focus on impact, not hours.",
+    ];
+
+    const humbleBrags = [
+      "When I was keynoting at Davos last month, someone asked me",
+      "After building 3 successful startups, I can tell you",
+      "My team just hit $50M ARR, and the secret was simple",
+      "Having advised dozens of Fortune 500 CEOs, I've noticed",
+      "While reviewing my portfolio of angel investments, it occurred to me",
+      "As someone who gets 500+ DMs a day asking for advice",
+      "After being featured in Forbes for the third time, I realized",
+      "When I look at my team of 200+ brilliant people",
+      "Fresh off my TED talk, I want to share",
+      "Having bootstrapped my way from nothing to an 8-figure exit",
+      "As I was boarding my flight to speak at Web Summit",
+      "My book just hit the NYT bestseller list, and honestly",
+      "After turning down my 4th acquisition offer this year",
+      "When Harvard Business Review asked me to write a piece",
+      "As someone who's been on both sides of the table",
+      "While mentoring my 50th founder this year, I noticed",
+      "After my viral post last week (10M+ impressions, wow)",
+      "When my company was named to the Inc. 5000 list again",
+      "Just finished recording my podcast (now #1 in Business!)",
+      "As someone who reads 100+ books a year",
+    ];
+
+    const punchyLines = [
+      "Let that sink in.",
+      "Read that again.",
+      "This is the way.",
+      "Full stop.",
+      "Period.",
+      "No exceptions.",
+      "Think about that.",
+      "I'll say it louder for the people in the back.",
+      "This changed everything for me.",
+      "And it can change everything for you too.",
+      "Agree?",
+      "Am I wrong?",
+      "It really is that simple.",
+      "Most people will scroll past this.",
+      "The ones who get it, get it.",
+      "Save this post. You'll thank me later.",
+      "Share this with someone who needs to hear it.",
+      "This took me 10 years to learn. I'm giving it to you for free.",
+      "Your future self will thank you.",
+      "Don't just like this post. Act on it.",
+      "Stop overthinking. Start doing.",
+      "The ball is in your court.",
+      "No one is coming to save you.",
+      "You already know what you need to do.",
+      "The time is now.",
+      "Repost if you agree.",
+    ];
+
+    const listicleItems = [
+      "Wake up at 4:30 AM",
+      "Journal for 20 minutes",
+      "Say no more than you say yes",
+      "Invest in yourself before investing in anything else",
+      "Read 30 minutes a day (no excuses)",
+      "Network relentlessly (your net worth = your network)",
+      "Embrace failure as feedback",
+      "Automate everything you can",
+      "Hire people smarter than you",
+      "Protect your energy like your life depends on it",
+      "Ship fast. Iterate faster",
+      "Build in public",
+      "Document, don't create",
+      "Focus on one thing at a time (multitasking is a myth)",
+      "Take cold showers (trust me on this)",
+      "Meditate daily (non-negotiable)",
+      "Delete social media (yes, the irony)",
+      "Stop attending meetings that could be emails",
+      "Have a morning routine and guard it fiercely",
+      "Write every single day",
+      "Say thank you more often",
+      "Learn to sell (everything is sales)",
+      "Find a mentor (or become one)",
+      "Set boundaries without guilt",
+      "Prioritize sleep (I know, I know)",
+      "Develop your personal brand",
+      "Give before you take",
+      "Celebrate small wins",
+      "Stay curious, stay hungry",
+      "Surround yourself with people who challenge you",
+    ];
+
+    const storySubjects = [
+      "a homeless man outside Whole Foods",
+      "my Uber driver",
+      "a barista at my local coffee shop",
+      "my 6-year-old daughter",
+      "a stranger on a plane",
+      "the security guard at my office",
+      "an intern on their first day",
+      "my grandmother",
+      "a monk I met in Bali",
+      "a street vendor in Mumbai",
+      "the waiter at a Michelin-star restaurant",
+      "a retired Navy SEAL",
+      "my Lyft driver (who turned out to be a PhD)",
+      "a kid selling lemonade on my street",
+      "the cleaning lady at my co-working space",
+      "an Uber driver who was also a former CEO",
+    ];
+
+    const storyLessons = [
+      "showed me what true leadership looks like",
+      "taught me more about business than my MBA",
+      "reminded me why I started",
+      "changed my entire perspective on success",
+      "gave me the best career advice I've ever received",
+      "demonstrated what hustle really means",
+      "proved that titles don't define leaders",
+      "showed me the power of resilience",
+      "made me rethink everything I thought I knew about work",
+      "taught me the value of simplicity",
+      "reminded me that empathy is a superpower",
+      "showed me that grit beats talent every time",
+    ];
+
+    const buzzwords = [
+      "synergy", "leverage", "disruption", "ecosystem", "paradigm shift",
+      "north star", "value proposition", "thought leadership", "scalability",
+      "alignment", "bandwidth", "deep dive", "circle back", "move the needle",
+      "low-hanging fruit", "game-changer", "bleeding edge", "blue ocean",
+      "stakeholder", "deliverables", "KPIs", "OKRs", "ROI",
+      "AI-powered", "Web3", "metaverse", "blockchain", "machine learning",
+      "growth hacking", "product-market fit", "minimum viable product",
+      "agile methodology", "digital transformation", "future-proofing",
+      "customer-centric", "data-driven", "results-oriented",
+      "cross-functional", "mission-critical", "best-in-class",
+      "holistic approach", "vertical integration", "horizontal scaling",
+    ];
+
+    const hashtags = [
+      "#ThoughtLeadership", "#Leadership", "#Innovation", "#Entrepreneurship",
+      "#StartupLife", "#GrowthMindset", "#Success", "#Motivation",
+      "#BusinessStrategy", "#FutureOfWork", "#PersonalBranding", "#Hustle",
+      "#CEOmindset", "#LinkedInCreator", "#ContentCreator", "#Networking",
+      "#CareerAdvice", "#ProfessionalDevelopment", "#LifeLessons",
+      "#WorkLifeBalance", "#Productivity", "#Mindfulness", "#Resilience",
+      "#DigitalTransformation", "#AI", "#Tech", "#SaaS", "#B2B",
+      "#Sales", "#Marketing", "#Culture", "#Hiring", "#TalentAcquisition",
+      "#RemoteWork", "#MentalHealth", "#Diversity", "#Inclusion",
+      "#Sustainability", "#Impact", "#Purpose", "#Authenticity",
+      "#AgreeOrDisagree", "#Thoughts", "#Repost",
+    ];
+
+    const closingCTAs = [
+      "What's the best career advice you've ever received? Drop it in the comments.",
+      "Agree or disagree? Let me know in the comments.",
+      "Follow me for more insights like this.",
+      "If this resonated with you, share it with your network.",
+      "Tag someone who needs to hear this today.",
+      "What would you add to this list? I'd love to hear your thoughts.",
+      "Hit the bell on my profile so you never miss a post.",
+      "DM me 'GROWTH' and I'll send you my free 47-page guide.",
+      "Which one of these hit hardest? Comment below.",
+      "I'm building a community of like-minded leaders. Link in bio.",
+      "This is just 1% of what I share with my newsletter subscribers.",
+      "Like this post if you agree. Comment if you disagree. Either way, I win.",
+      "P.S. I'm hosting a free webinar on this topic next week. Link in comments.",
+      "If you made it this far, you're already ahead of 99% of people.",
+      "Repost to help someone in your network who's struggling.",
+      "The algorithm rewards engagement, so drop a comment and let's connect!",
+      "Smash that like button if this hit different.",
+      "I post content like this every day. Follow for more.",
+    ];
+
+    const contrarianTargets = [
+      "hustle culture", "morning routines", "networking events",
+      "business school", "remote work", "return to office",
+      "personal branding", "thought leadership", "growth hacking",
+      "productivity hacks", "side hustles", "passive income",
+      "corporate culture", "startup culture", "meetings",
+    ];
+
+    const postStyles = ["story", "listicle", "hot_take", "humble_brag", "motivational", "contrarian"];
+
+    // ─── GENERATOR ────────────────────────────────────────────
+
+    function pick(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function pickN(arr, n) {
+      const shuffled = [...arr].sort(() => Math.random() - 0.5);
+      return shuffled.slice(0, Math.min(n, arr.length));
+    }
+
+    function makeHashtags(count) {
+      return pickN(hashtags, count || 5).join(" ");
+    }
+
+    function linkedInFormat(lines) {
+      return lines.join("\n\n");
+    }
+
+    function generateStory() {
+      return linkedInFormat([
+        pick(openingHooks),
+        "I met " + pick(storySubjects) + " last week.",
+        "We talked for 10 minutes.",
+        pick(vulnerablePivots),
+        "This person " + pick(storyLessons) + ".",
+        pick(insights),
+        pick(punchyLines),
+        pick(closingCTAs),
+        "",
+        makeHashtags(),
+      ]);
+    }
+
+    function generateListicle() {
+      var count = Math.floor(Math.random() * 5) + 5;
+      var items = pickN(listicleItems, count);
+      var list = items.map(function(item, i) { return (i + 1) + ". " + item; }).join("\n");
+      return linkedInFormat([
+        count + " things I wish someone told me " + (Math.floor(Math.random() * 10) + 5) + " years ago:",
+        list,
+        "",
+        pick(punchyLines),
+        pick(closingCTAs),
+        "",
+        makeHashtags(),
+      ]);
+    }
+
+    function generateHotTake() {
+      return linkedInFormat([
+        pick(["Unpopular opinion:", "Hot take:", "Controversial take:", "I said what I said:"]),
+        pick(insights),
+        pick(punchyLines),
+        pick(vulnerablePivots),
+        pick(insights),
+        pick(punchyLines),
+        "",
+        pick(closingCTAs),
+        "",
+        makeHashtags(),
+      ]);
+    }
+
+    function generateHumbleBrag() {
+      return linkedInFormat([
+        pick(openingHooks),
+        pick(humbleBrags) + ": the most important thing in business isn't " + pick(buzzwords) + ".",
+        "It's " + pick(buzzwords) + ".",
+        pick(vulnerablePivots),
+        pick(insights),
+        pick(punchyLines),
+        pick(punchyLines),
+        "",
+        pick(closingCTAs),
+        "",
+        makeHashtags(),
+      ]);
+    }
+
+    function generateMotivational() {
+      return linkedInFormat([
+        pick(openingHooks),
+        pick(vulnerablePivots),
+        pick(insights),
+        "",
+        "Here's the truth:",
+        "",
+        pick(insights),
+        pick(punchyLines),
+        "",
+        "You are one decision away from a completely different life.",
+        "",
+        pick(punchyLines),
+        pick(closingCTAs),
+        "",
+        makeHashtags(),
+      ]);
+    }
+
+    function generateContrarian() {
+      var target = pick(contrarianTargets);
+      return linkedInFormat([
+        "Stop glorifying " + target + ".",
+        pick(punchyLines),
+        pick(vulnerablePivots),
+        "I spent years chasing " + target + ". It nearly destroyed me.",
+        pick(insights),
+        "",
+        "The real secret? " + pick(insights),
+        pick(punchyLines),
+        "",
+        pick(closingCTAs),
+        "",
+        makeHashtags(),
+      ]);
+    }
+
+    var generators = {
+      story: generateStory,
+      listicle: generateListicle,
+      hot_take: generateHotTake,
+      humble_brag: generateHumbleBrag,
+      motivational: generateMotivational,
+      contrarian: generateContrarian,
+    };
+
+    // ─── UI ───────────────────────────────────────────────────
+
+    var currentPost = "";
+
+    function generate() {
+      var style = document.getElementById("style").value;
+      var chosenStyle = style || pick(postStyles);
+      currentPost = generators[chosenStyle]();
+      document.getElementById("post-body").textContent = currentPost;
+    }
+
+    function copyPost() {
+      if (!currentPost) return;
+      navigator.clipboard.writeText(currentPost).then(function() {
+        var btn = document.querySelector(".copy-btn");
+        btn.textContent = "Copied!";
+        setTimeout(function() { btn.textContent = "Copy to Clipboard"; }, 2000);
+      });
+    }
+
+    // Generate on load
+    generate();
+  </script>
+</body>
+</html>
