@@ -9,7 +9,7 @@ const HTML_PAGE = `<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bot Leadership - Thought Leadership Generator</title>
+  <title>bot leadership - thought leadership generator</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -201,7 +201,7 @@ const HTML_PAGE = `<!DOCTYPE html>
 </head>
 <body>
   <div class="header">
-    <h1>Bot Leadership</h1>
+    <h1>bot leadership</h1>
     <p>The Aggregate Mix of Every LinkedIn Thought Leader</p>
   </div>
 
@@ -225,7 +225,7 @@ const HTML_PAGE = `<!DOCTYPE html>
         <div class="post-header">
           <div class="avatar">BL</div>
           <div class="post-meta">
-            <h3>Bot Leadership</h3>
+            <h3>bot leadership</h3>
             <p>Thought Leader | Disrupting Disruption | 500+ Connections</p>
             <p>Just now &middot; 🌐</p>
           </div>
@@ -242,7 +242,7 @@ const HTML_PAGE = `<!DOCTYPE html>
     </div>
 
     <div class="footer">
-      Bot Leadership &mdash; No actual thought leaders were harmed in the making of this content.<br>
+      bot leadership &mdash; no actual thought leaders were harmed in the making of this content.<br>
       Powered by an aggregate mix of every LinkedIn clich&eacute; ever written.
     </div>
   </div>
@@ -314,7 +314,7 @@ function handleRequest(req: http.IncomingMessage, res: http.ServerResponse) {
 const server = http.createServer(handleRequest);
 
 server.listen(PORT, () => {
-  console.log(`\n  Bot Leadership is now disrupting on http://localhost:${PORT}\n`);
+  console.log(`\n  bot leadership is now disrupting on http://localhost:${PORT}\n`);
   console.log("  Endpoints:");
   console.log("    GET /              Web interface");
   console.log("    GET /api/generate  Generate a post (optional ?style=listicle)");
