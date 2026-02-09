@@ -231,6 +231,7 @@
         <option value="humble_brag">Humble Brag</option>
         <option value="motivational">Motivational</option>
         <option value="contrarian">Contrarian</option>
+        <option value="superbowl">Super Bowl</option>
       </select>
       <button class="generate-btn" onclick="generate()">Generate Post</button>
     </div>
@@ -533,13 +534,99 @@
       "corporate culture", "startup culture", "meetings",
     ];
 
+    // Super Bowl thought leadership content
+    const superBowlOpeners = [
+      "I didn't watch the Super Bowl for the game.",
+      "The Super Bowl isn't about football anymore.",
+      "I watched every single Super Bowl ad so you don't have to.",
+      "Last night wasn't just a game. It was a masterclass in brand strategy.",
+      "Everyone's talking about the halftime show. But here's what they missed.",
+      "I've been in advertising for 15 years. Last night changed everything.",
+      "The real winner of the Super Bowl? It wasn't either team.",
+      "I took notes during every commercial break. Here's what I learned.",
+      "My entire family was watching the game. I was analyzing the ads.",
+      "Forget the final score. Let's talk about what really mattered last night.",
+      "Hot take: The Super Bowl is the greatest marketing case study of the year.",
+      "I hosted a Super Bowl watch party for 30 CMOs. The conversations were incredible.",
+      "While everyone else was eating nachos, I was taking screenshots of every ad.",
+    ];
+
+    const superBowlBrands = [
+      "That Doritos ad", "The Uber Eats spot", "Google's AI commercial",
+      "Apple's 60-second masterpiece", "The Budweiser Clydesdales",
+      "That crypto ad", "Squarespace's celebrity cameo", "The NFL's own promo",
+      "Tubi's weird fake-out ad", "The Mountain Dew spot", "Pringles' absurdist humor",
+      "The T-Mobile collab", "Disney+'s trailer drop", "The Kia moment",
+      "Ram's emotional storytelling", "The FanDuel integration",
+    ];
+
+    const superBowlInsights = [
+      "proved that authenticity beats production value every time",
+      "understood the assignment",
+      "absolutely won the night (and it's not even close)",
+      "showed us what happens when creative takes risks",
+      "is everything that's right about advertising in 2024",
+      "will be studied in marketing classes for years",
+      "reminded us why storytelling still matters",
+      "took a $7M gamble and it paid off",
+      "knew exactly who their audience was",
+      "made every other brand look amateur",
+      "is the new gold standard for Super Bowl advertising",
+      "perfectly balanced humor with heart",
+    ];
+
+    const superBowlHalftimeOpinions = [
+      "Bad Bunny didn't just perform. He made a statement.",
+      "The halftime show was a masterclass in personal branding.",
+      "Say what you want about the halftime show — it drove engagement.",
+      "The halftime show proved that cultural relevance > everything.",
+      "Everyone's a critic. But that halftime show moved the needle.",
+      "The halftime show wasn't for you. And that's the point.",
+      "That halftime performance? Peak audience understanding.",
+      "Love it or hate it, the halftime show dominated the conversation.",
+      "The halftime show was a reminder: know your audience.",
+    ];
+
+    const superBowlTakeaways = [
+      "Nostalgia is the most powerful marketing tool we have.",
+      "Celebrity cameos only work if they serve the story.",
+      "The brands that won weren't selling products. They were selling feelings.",
+      "Humor is back. Edgy is out. Wholesome is in.",
+      "The best ads didn't feel like ads at all.",
+      "You don't need $7M to learn from what happened last night.",
+      "Every startup should study these ads before their next campaign.",
+      "The future of advertising played out in 30-second increments last night.",
+      "AI was everywhere. But human connection still won.",
+      "The brands that tried too hard lost. The ones that stayed authentic won.",
+      "Attention is the new currency. Last night proved it.",
+    ];
+
+    const superBowlCTAs = [
+      "What was YOUR favorite Super Bowl ad? Drop it below. " + "👇",
+      "Which brand won the Super Bowl in your opinion? Let's debate.",
+      "I'm putting together a full breakdown of every ad. DM me 'SUPERBOWL' for early access.",
+      "Agree with my take? Share this with your marketing team.",
+      "Tag a CMO who needs to see this analysis.",
+      "Follow me for more real-time marketing breakdowns.",
+      "I'll be posting my full 47-slide deck on Super Bowl advertising lessons. Stay tuned.",
+      "Which ads missed the mark? I want to hear the hot takes.",
+      "If you're in advertising and you weren't taking notes last night, what are you even doing?",
+    ];
+
+    const superBowlHashtags = [
+      "#SuperBowl", "#SuperBowlAds", "#BigGame", "#SuperBowlCommercials",
+      "#Marketing", "#Advertising", "#BrandStrategy", "#CMO", "#AdLife",
+      "#SuperBowlLIX", "#HalftimeShow", "#BadBunny", "#GameDay",
+      "#MarketingTwitter", "#AdWeek", "#CreativeStrategy",
+    ];
+
     const linkedInEmojis = [
       "💡", "🚀", "🔥", "⭐", "✨", "💪", "🎯", "📈", "🙌", "👇",
       "⚡", "🧠", "💎", "🏆", "🌟", "❤️", "👏", "🤝", "📣", "🔑",
       "💰", "🎉", "✅", "➡️", "🛑", "⬇️", "👀", "🫡", "🙏", "💯",
     ];
 
-    const postStyles = ["story", "listicle", "hot_take", "humble_brag", "motivational", "contrarian"];
+    const postStyles = ["story", "listicle", "hot_take", "humble_brag", "motivational", "contrarian", "superbowl"];
 
     // ─── GENERATOR ────────────────────────────────────────────
 
@@ -663,6 +750,28 @@
       ]);
     }
 
+    function generateSuperBowl() {
+      var brand = pick(superBowlBrands);
+      var insight = pick(superBowlInsights);
+      return linkedInFormat([
+        emoji() + " " + pick(superBowlOpeners),
+        pick(superBowlHalftimeOpinions) + " " + emoji(),
+        "",
+        "But let's talk about the ads. " + emoji(),
+        "",
+        brand + " " + insight + ". " + emoji(),
+        "",
+        emoji() + " " + pick(superBowlTakeaways),
+        pick(superBowlTakeaways),
+        "",
+        pick(punchyLines) + " " + emoji(),
+        "",
+        pick(superBowlCTAs),
+        "",
+        pickN(superBowlHashtags, 5).join(" ") + " " + pickN(hashtags, 3).join(" "),
+      ]);
+    }
+
     var generators = {
       story: generateStory,
       listicle: generateListicle,
@@ -670,6 +779,7 @@
       humble_brag: generateHumbleBrag,
       motivational: generateMotivational,
       contrarian: generateContrarian,
+      superbowl: generateSuperBowl,
     };
 
     // ─── UI ───────────────────────────────────────────────────
